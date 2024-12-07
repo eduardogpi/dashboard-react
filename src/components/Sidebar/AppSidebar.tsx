@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { Lock, KeySquare, Mailbox, Settings, ListTodo } from "lucide-react"
+import {Lock, KeySquare, BoxIcon, Mailbox, Pencil, Plus, Settings, Trash, ListTodo } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -18,47 +18,49 @@ import {
 
 } from "@/components/ui/sidebar"
 import Link from "next/link";
-
+import {usePathname} from "next/navigation";
 // Menu items.
 const items = [
   {
-    id: '123aslk',
+    id:'123aslk',
     group: '1',
     title: "Sistema CEP",
     url: "../pesquisacep",
     icon: Mailbox,
   },
   {
-    id: '3498dddd',
+    id:'3498dddd',
     group: '2',
     title: "Cumprimentos",
-    url: "#",
+    url: "/dashboard/cumprimentos",
     icon: ListTodo,
     subs: [
       {
-        sub: '2-1',
+        sub:'2-1',
         title: "Alvarás",
-        url: "#",
+        url: "/dashboard/cumprimentos/alvaras",
         icon: KeySquare
       },
       {
         sub: '2-2',
         title: "Mandados",
-        url: "#",
+        url: "/dashboard/cumprimentos/mandados",
         icon: Lock
       }
     ],
   },
   {
-    id: 'lkgj3434',
+    id:'lkgj3434',
     group: '3',
     title: "Configurações",
-    url: "#",
+    url: "/dashboard/configuracoes",
     icon: Settings,
   }
 ]
 
 export function AppSidebar() {
+  const pathname = usePathname();
+  console.log(pathname)
   return (
     <Sidebar className="">
       <SidebarHeader className="">
@@ -73,52 +75,38 @@ export function AppSidebar() {
           <SidebarGroupLabel>Sistema</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem key="1">
-                <SidebarMenuButton asChild variant="outline">
-                  <Link href="../pesquisacep">
-                    <Mailbox />
-                    <span>CEP</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem key="2">
-                <SidebarMenuButton asChild variant="outline">
-                  <Link href="/dashboard/cumprimentos">
-                    <ListTodo />
-                    <span>Cumprimentos</span>
-                  </Link>
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton key="2-1" asChild >
-                      <Link href="/dashboard/cumprimentos/alvaras" className="flex gap-1 items-center" >
-                        <KeySquare className="h-4 w-4" />
-                        <span>Alvarás</span>
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem>
-                    <SidebarMenuSubButton key="2-2" asChild >
-                      <Link href="/dashboard/cumprimentos/mandados" className="flex gap-1 items-center" >
-                        <Lock className="h-4 w-4" />
-                        <span>Mandados</span>
-                      </Link>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </SidebarMenuItem>
-              <SidebarMenuItem key="3">
-                <SidebarMenuButton asChild variant="outline">
-                  <Link href="/dashboard/configuracoes">
-                    <Settings />
-                    <span>Configurações</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.group}>
+                  <SidebarMenuButton asChild variant="outline">
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                  {item.subs && (
+                    <SidebarMenuSub key={item.id}>
+                      
+                      {item.subs.map((item2) => (
+                        
+                        <SidebarMenuSubItem key={item2.sub}>
+                          <SidebarMenuSubButton asChild >
+                            <Link href={item2.url} className="flex gap-1 items-center" >
+                              <item2.icon className="h-4 w-4" />
+                              <span>{item2.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
+                </SidebarMenuItem>
+
+
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-    </Sidebar >
+    </Sidebar>
   )
 }

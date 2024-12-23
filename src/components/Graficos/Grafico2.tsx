@@ -1,5 +1,5 @@
 "use client"
-import {LineChart, Line, CartesianGrid, XAxis, YAxis} from "recharts"
+import {LineChart, Line, CartesianGrid, XAxis} from "recharts"
 
 import {ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart"
 

@@ -30,7 +30,7 @@ type TFormCep = {
     siafi: string
 }
 type CardProps = {
-    handleResult: Function
+    handleResult: Function ;
 }
 export function CardEndereco(props: CardProps) {
     const form = useForm<TFormCep>({
@@ -51,7 +51,7 @@ export function CardEndereco(props: CardProps) {
         }
     })
 
-    function handleSubmitCEP(data: TFormCep) {
+    function handleSubmitCEP(data: TFormCep):void {
         if (data.cep != '') {
             fetch(`https://viacep.com.br/ws/${data.cep}/json/`)
                 .then(res => res.json())
@@ -65,7 +65,7 @@ export function CardEndereco(props: CardProps) {
                         
 
                     }
-                ).catch(erro => props.handleResult(undefined))
+                ).catch(error => props.handleResult(undefined))
         }else{
             props.handleResult(undefined)
         }

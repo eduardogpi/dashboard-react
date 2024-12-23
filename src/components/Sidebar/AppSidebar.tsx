@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import {Lock, KeySquare, BoxIcon, Mailbox, Pencil, Plus, Settings, Trash, ListTodo } from "lucide-react"
+import {Lock, KeySquare, Mailbox, Settings, ListTodo } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
